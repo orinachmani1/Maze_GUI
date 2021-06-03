@@ -2,6 +2,7 @@
   <library name="lib">
     <CLASSES>
       <root url="file://$USER_HOME$/Downloads/openjfx-16_windows-x64_bin-sdk/javafx-sdk-16/lib" />
+      <root url="jar://$USER_HOME$/Desktop/ATP.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
