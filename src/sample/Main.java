@@ -1,6 +1,6 @@
 package sample;
 
-import algorithms.maze3D.Maze3DState;
+///import algorithms.maze3D.Maze3DState;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
