@@ -21,7 +21,7 @@ public class MyViewController implements IView, Observer {
         int rows= Integer.valueOf(textField_mazeRows.getText());
         int cols= Integer.valueOf(textField_mazeColumns.getText());
         Maze m =new Maze(rows,cols);
-        System.out.println("hey");
+        System.out.println("rows:" + rows +" cols: " + cols );
     }
 
     public void solveMaze(ActionEvent actionEvent) {
