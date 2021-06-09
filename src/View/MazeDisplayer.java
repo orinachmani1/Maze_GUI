@@ -19,7 +19,9 @@ public class MazeDisplayer extends Canvas {
     private int playerCol = 0;
     // wall and player images:
     StringProperty imageFileNameWall = new SimpleStringProperty();
-    StringProperty imageFileNamePlayer = new SimpleStringProperty();    public int getPlayerRow() {
+    StringProperty imageFileNamePlayer = new SimpleStringProperty();
+
+    public int getPlayerRow() {
         return playerRow;
     }
 

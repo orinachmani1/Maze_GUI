@@ -3,7 +3,9 @@ package Model;
 import Client.*;
 import Server.*;
 import IO.*;
+import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
+import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.Solution;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -34,6 +36,7 @@ public class MyModel extends Observable implements IModel {
         //startServers();
     }
 
+
     @Override
     public void startServers() {
         this.serverGenerateMaze.start();
@@ -54,7 +57,11 @@ public class MyModel extends Observable implements IModel {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }*/
-        Maze m = new Maze(rows,cols);
+        MyMazeGenerator generator = new MyMazeGenerator();
+        Maze m = generator.generate(10,10);
+        this.maze = m;
+        setChanged();
+        notifyObservers();
         System.out.println("genrated");
         //this.maze=new Maze(rows,cols);
     }
