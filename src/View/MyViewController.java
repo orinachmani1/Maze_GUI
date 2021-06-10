@@ -74,7 +74,7 @@ public class MyViewController implements IView, Observer, Initializable {
     }
 
     public void keyPressed(KeyEvent keyEvent) {
-        System.out.println("please");
+        //System.out.println("please");
         viewModel.movePlayer(keyEvent);
         keyEvent.consume();
     }

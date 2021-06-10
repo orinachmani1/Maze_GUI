@@ -55,21 +55,42 @@ public class MyViewModel extends Observable implements Observer {
 
     public int[][] getMaze()
     {
-        return this.imodel.getMaze().getGrid();
+        Maze maze = imodel.getMaze();
+        if(maze==null){return null;}
+        return maze.getGrid();
     }
 
     public void movePlayer(KeyEvent keyEvent){
         MovementDirection direction = MovementDirection.DOWN;
-        switch (keyEvent.getCode()){
-            case UP: direction = MovementDirection.UP;
-            case DOWN : direction = MovementDirection.DOWN;
-            case LEFT : direction = MovementDirection.LEFT;
-            case RIGHT :direction = MovementDirection.RIGHT;
-            imodel.updatePlayerLocation(direction);
-            default : {
-               return;
-            }
-        }
+        System.out.println(keyEvent.getCode());
+        String key = keyEvent.getCode().getName();
+
+        if (key.equals("Right")){direction = MovementDirection.RIGHT;}
+        if (key.equals("Up")){direction = MovementDirection.UP;}
+        if (key.equals("Down")){direction = MovementDirection.DOWN;}
+        if (key.equals("Left")){direction = MovementDirection.LEFT;}
+        imodel.updatePlayerLocation(direction);
+
+//        switch (key){
+//            case "Right" :direction = MovementDirection.RIGHT;
+//            case "Up" : direction = MovementDirection.UP;
+//            case "Down" : direction = MovementDirection.DOWN;
+//            case "Left" : direction = MovementDirection.LEFT;
+//            imodel.updatePlayerLocation(direction);
+//            default : {
+//                return;
+//            }
+//        }
+//        switch (keyEvent.getCode()){
+//            case RIGHT :direction = MovementDirection.RIGHT;
+//            case UP: direction = MovementDirection.UP;
+//            case DOWN : direction = MovementDirection.DOWN;
+//            case LEFT : direction = MovementDirection.LEFT;
+//            imodel.updatePlayerLocation(direction);
+//            default : {
+//               return;
+//            }
+//        }
     }
 
     public void saveMaze(File f){

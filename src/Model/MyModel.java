@@ -6,7 +6,9 @@ import IO.*;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
+import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -84,33 +86,69 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void updatePlayerLocation(MovementDirection direction) {
-        switch (direction) {
-            case UP: {
-                if (playerRow > 0)
-                    movePlayer(playerRow - 1, playerCol);
+
+        int rows = maze.getRows();
+        int cols = maze.getCols();
+
+        String key = direction.name();
+
+        if (maze!=null)
+        {
+               if (key.equals("UP"))
+               {
+                   if (playerRow > 0)
+                       movePlayer(playerRow - 1, playerCol);
+               }
+
+               if (key.equals("DOWN"))
+                {
+                    if (playerRow < maze.getRows() - 1)
+                        movePlayer(playerRow + 1, playerCol);
                 }
-            case DOWN : {
-                if (playerRow < maze.getRows() - 1)
-                    movePlayer(playerRow + 1, playerCol);
+
+                if (key.equals("LEFT"))
+                {
+                    if (playerCol > 0)
+                        movePlayer(playerRow, playerCol - 1);
+                }
+
+                if (key.equals("RIGHT"))
+                {
+                    if (playerCol < maze.getCols() - 1)
+                        movePlayer(playerRow, playerCol + 1);
+                }
+
             }
-            case LEFT :{
-                if (playerCol > 0)
-                    movePlayer(playerRow, playerCol - 1);
-            }
-            case RIGHT : {
-                if (playerCol < maze.getCols() - 1)
-                    movePlayer(playerRow, playerCol + 1);
-            }
-            default:return;
+//            switch (direction) {
+//                case UP: {
+//                    if (playerRow > 0)
+//                        movePlayer(playerRow - 1, playerCol);
+//                }
+//                case DOWN : {
+//                    if (playerRow < maze.getRows() - 1)
+//                        movePlayer(playerRow + 1, playerCol);
+//                }
+//                case LEFT :{
+//                    if (playerCol > 0)
+//                        movePlayer(playerRow, playerCol - 1);
+//                }
+//                case RIGHT : {
+//                    if (playerCol < maze.getCols() - 1)
+//                        movePlayer(playerRow, playerCol + 1);
+//                }
+//                default:return;
+//            }
         }
 
-    }
-
     public void movePlayer(int row, int col){
-        this.playerRow = row;
-        this.playerCol = col;
-        setChanged();
-        notifyObservers("player moved");
+        int valid = maze.getGrid()[row][col];
+        if(this.maze != null && valid==0 )
+        {
+            this.playerRow = row;
+            this.playerCol = col;
+            setChanged();
+            notifyObservers("player moved");
+        }
     }
 
     @Override
