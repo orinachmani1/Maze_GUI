@@ -1,10 +1,10 @@
 package View;
 
 import ViewModel.MyViewModel;
-import algorithms.mazeGenerators.Maze;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,7 +16,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-public class MyViewController implements IView, Observer {
+public class MyViewController implements IView, Observer, Initializable {
     public MyViewModel viewModel;
 
     public void setViewModel(MyViewModel viewModel) {
@@ -33,6 +33,7 @@ public class MyViewController implements IView, Observer {
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
 
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playerRow.textProperty().bind(updatePlayerRow);
         playerCol.textProperty().bind(updatePlayerCol);
@@ -73,6 +74,7 @@ public class MyViewController implements IView, Observer {
     }
 
     public void keyPressed(KeyEvent keyEvent) {
+        System.out.println("please");
         viewModel.movePlayer(keyEvent);
         keyEvent.consume();
     }
@@ -113,5 +115,6 @@ public class MyViewController implements IView, Observer {
     private void mazeGenerated() {
         mazeDisplayer.drawMaze(viewModel.getMaze());
     }
+
 
 }

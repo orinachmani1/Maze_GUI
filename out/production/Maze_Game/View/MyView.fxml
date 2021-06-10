@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="View.MyViewController" stylesheets="@MainStyle.css">
+<BorderPane onMouseClicked="#mouseClicked" xmlns:fx="http://javafx.com/fxml" fx:controller="View.MyViewController" stylesheets="@MainStyle.css">
     <left>
         <VBox prefHeight="200.0" prefWidth="178.0" spacing="5.0" BorderPane.alignment="CENTER">
             <children>
@@ -30,10 +30,14 @@
                     </rowConstraints>
                     <Label text="Maze rows:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
                     <Label text="Maze columns:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                    <TextField fx:id="textField_mazeRows" text="50" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                    <TextField fx:id="textField_mazeColumns" text="50" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <TextField fx:id="textField_mazeRows" text="10" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <TextField fx:id="textField_mazeColumns" text="10" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                     <Button onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2"/>
                     <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" text="Solve Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3"/>
+                    <Label text="Player Row = " GridPane.rowIndex="4" />
+                    <Label text="Player Col = " GridPane.rowIndex="5" />
+                    <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 </GridPane>
             </children>
             <padding>
@@ -76,7 +80,7 @@
     <center>
         <Pane BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" width="400.0"/>
+                <MazeDisplayer onKeyPressed="#keyPressed" fx:id="mazeDisplayer" height="400.0" width="400.0"/>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

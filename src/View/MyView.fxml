@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="View.MyViewController" stylesheets="@MainStyle.css">
+<BorderPane onMouseClicked="#mouseClicked" xmlns:fx="http://javafx.com/fxml" fx:controller="View.MyViewController" stylesheets="@MainStyle.css">
     <left>
         <VBox prefHeight="200.0" prefWidth="178.0" spacing="5.0" BorderPane.alignment="CENTER">
             <children>
@@ -80,7 +80,7 @@
     <center>
         <Pane BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" width="400.0"/>
+                <MazeDisplayer onKeyPressed="#keyPressed" fx:id="mazeDisplayer" height="400.0" width="400.0"/>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
