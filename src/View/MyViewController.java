@@ -62,8 +62,6 @@ public class MyViewController implements IView, Observer, Initializable {
         int[][] maze = viewModel.getMaze();
         this.mazeDisplayer.setMaze(maze);
         this.mazeDisplayer.drawMaze(maze);
-        //Maze m =new Maze(rows,cols);
-        //System.out.println("rows:" + rows +" cols: " + cols );
     }
 
     public void solveMaze(ActionEvent actionEvent) {
@@ -105,6 +103,7 @@ public class MyViewController implements IView, Observer, Initializable {
     }
 
     private void mazeSolved() {
+        System.out.println("winner!");
         mazeDisplayer.setSolution(viewModel.getSolution());
     }
 

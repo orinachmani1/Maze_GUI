@@ -148,6 +148,11 @@ public class MyModel extends Observable implements IModel {
             this.playerCol = col;
             setChanged();
             notifyObservers("player moved");
+            if(this.playerRow==this.goalRow && this.playerCol==this.goalColumn)
+            {
+                setChanged();
+                notifyObservers("maze solved");
+            }
         }
     }
 

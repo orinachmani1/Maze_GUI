@@ -29,7 +29,7 @@ public class MazeDisplayer extends Canvas {
     public MazeDisplayer()
     {
         setImageFileNamePlayer("Resources/boy.jpg");
-        setImageFileNameWall("Resources/fish.jpg");
+        setImageFileNameWall("Resources/nemo.PNG");
         setImageFileNameGoal("Resources/t1.jpg");
     }
     public int getPlayerRow() {
