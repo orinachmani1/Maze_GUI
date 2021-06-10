@@ -113,7 +113,21 @@ public class MyViewController implements IView, Observer, Initializable {
     }
 
     private void mazeGenerated() {
+        mazeDisplayer.setGoalRow(getGoalRow());
+        mazeDisplayer.setGoalCol(getGoalCol());
         mazeDisplayer.drawMaze(viewModel.getMaze());
+    }
+
+    public int getGoalRow()
+    {
+        int row = viewModel.getGoalRow();
+        return row;
+    }
+
+    public int getGoalCol()
+    {
+        int col = viewModel.getGoalCol();
+        return col;
     }
 
 

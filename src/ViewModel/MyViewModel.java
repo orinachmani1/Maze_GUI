@@ -115,4 +115,14 @@ public class MyViewModel extends Observable implements Observer {
         int col = imodel.getPlayerCol();
         return col;
     }
+
+    public int getGoalRow() {
+        int row = imodel.getMaze().getGoalPosition().getRowIndex();
+        return row;
+    }
+
+    public int getGoalCol() {
+        int col =  imodel.getMaze().getGoalPosition().getColumnIndex();
+        return col;
+    }
 }
