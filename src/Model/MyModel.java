@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Observable;
+import java.util.Observer;
 
 public class MyModel extends Observable implements IModel {
 
@@ -24,8 +25,8 @@ public class MyModel extends Observable implements IModel {
     private Maze maze;
     private Solution solution;
 
-    private int characterPositionRow;
-    private int characterPositionColumn;
+    private int playerRow = 0;
+    private int playerCol = 0;
     private int goalRow;
     private int goalColumn;
 
@@ -58,11 +59,11 @@ public class MyModel extends Observable implements IModel {
             e.printStackTrace();
         }*/
         MyMazeGenerator generator = new MyMazeGenerator();
-        Maze m = generator.generate(10,10);
+        Maze m = generator.generate(rows,cols);
         this.maze = m;
         setChanged();
-        notifyObservers();
-        System.out.println("genrated");
+        notifyObservers("maze generated");
+        System.out.println("generated");
         //this.maze=new Maze(rows,cols);
     }
 
@@ -81,29 +82,48 @@ public class MyModel extends Observable implements IModel {
         //this.solution =
     }
 
-    public void movePlayer(KeyEvent movement) {
-        //TODO
+    @Override
+    public void updatePlayerLocation(MovementDirection direction) {
+        switch (direction) {
+            case UP: {
+                if (playerRow > 0)
+                    movePlayer(playerRow - 1, playerCol);
+                }
+            case DOWN : {
+                if (playerRow < maze.getRows() - 1)
+                    movePlayer(playerRow + 1, playerCol);
+            }
+            case LEFT :{
+                if (playerCol > 0)
+                    movePlayer(playerRow, playerCol - 1);
+            }
+            case RIGHT : {
+                if (playerCol < maze.getCols() - 1)
+                    movePlayer(playerRow, playerCol + 1);
+            }
+            default:return;
+        }
+
+    }
+
+    public void movePlayer(int row, int col){
+        this.playerRow = row;
+        this.playerCol = col;
+        setChanged();
+        notifyObservers("player moved");
     }
 
     @Override
-    public int getCharacterPositionRow() {
-        return this.characterPositionRow;
-    }
+    public int getPlayerRow() {return this.playerRow;}
 
     @Override
-    public int getCharacterPositionColumn() {
-        return this.characterPositionColumn;
-    }
+    public int getPlayerCol() { return this.playerCol;}
 
     @Override
-    public void setCharacterPositionRow(int characterPositionRow) {
-        this.characterPositionRow = characterPositionRow;
+    public void assignObserver(Observer o) {
+        this.addObserver(o);
     }
 
-    @Override
-    public void setCharacterPositionColumn(int characterPositionColumn) {
-        this.characterPositionColumn = characterPositionColumn;
-    }
 
     @Override
     public int getGoalRow() {

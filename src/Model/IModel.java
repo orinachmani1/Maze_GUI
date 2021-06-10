@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.io.File;
+import java.util.Observer;
 
 public interface IModel {
 
@@ -14,11 +15,13 @@ public interface IModel {
     Solution getSolution();
     void solveMaze();
 
-    void movePlayer(KeyEvent movement);
-    int getCharacterPositionRow();
-    int getCharacterPositionColumn();
-    void setCharacterPositionRow(int characterPositionRow);
-    void setCharacterPositionColumn(int characterPositionColumn);
+    public void updatePlayerLocation(MovementDirection direction);
+    public void movePlayer(int row, int col);
+    public int getPlayerRow();
+    public int getPlayerCol();
+    void assignObserver(Observer o);
+//    void setCharacterPositionRow(int characterPositionRow);
+//    void setCharacterPositionColumn(int characterPositionColumn);
 
     int getGoalRow();
     void setGoalRow(int goalRow);

@@ -11,8 +11,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
+import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.ResourceBundle;
 
 public class MyViewController implements IView, Observer {
     public MyViewModel viewModel;
@@ -30,6 +32,11 @@ public class MyViewController implements IView, Observer {
 
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
+
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        playerRow.textProperty().bind(updatePlayerRow);
+        playerCol.textProperty().bind(updatePlayerCol);
+    }
 
     public String getUpdatePlayerRow() {
         return updatePlayerRow.get();
@@ -52,9 +59,10 @@ public class MyViewController implements IView, Observer {
         int cols= Integer.valueOf(textField_mazeColumns.getText());
         viewModel.generateMaze(rows, cols);
         int[][] maze = viewModel.getMaze();
+        this.mazeDisplayer.setMaze(maze);
         this.mazeDisplayer.drawMaze(maze);
         //Maze m =new Maze(rows,cols);
-        System.out.println("rows:" + rows +" cols: " + cols );
+        //System.out.println("rows:" + rows +" cols: " + cols );
     }
 
     public void solveMaze(ActionEvent actionEvent) {
@@ -82,6 +90,8 @@ public class MyViewController implements IView, Observer {
     @Override
     public void update(Observable o, Object arg) {
         String change = (String) arg;
+        System.out.println("UPDATED: " + change);
+        if (change==null){return;}
         switch (change){
             case ("maze generated"):
                 mazeGenerated();
@@ -89,8 +99,6 @@ public class MyViewController implements IView, Observer {
                 playerMoved();
             case ("maze solved"):
                 mazeSolved();
-            default:
-                System.out.println("Not implemented change: " + change);
         }
     }
 
@@ -105,4 +113,5 @@ public class MyViewController implements IView, Observer {
     private void mazeGenerated() {
         mazeDisplayer.drawMaze(viewModel.getMaze());
     }
+
 }

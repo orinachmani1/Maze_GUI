@@ -1,6 +1,7 @@
 package ViewModel;
 
 import Model.IModel;
+import Model.MovementDirection;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
 import javafx.application.Platform;
@@ -27,8 +28,8 @@ public class MyViewModel extends Observable implements Observer {
 
     public MyViewModel(IModel model) {
         this.imodel = model;
+        this.imodel.assignObserver(this);
     }
-
 
     public void generateMaze(int rows, int cols){
         imodel.generateMaze(rows, cols);
@@ -42,13 +43,13 @@ public class MyViewModel extends Observable implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (o==imodel){
-            characterPositionRowIndex = this.imodel.getCharacterPositionRow();
+            characterPositionRowIndex = this.imodel.getPlayerRow();
             characterRow.set(characterPositionRowIndex + "");
-            characterPositionColumnIndex = this.imodel.getCharacterPositionColumn();
+            characterPositionColumnIndex = this.imodel.getPlayerCol();
             characterColumn.set(characterPositionColumnIndex + "");
             Solution solution= this.imodel.getSolution();
             setChanged();
-            notifyObservers();
+            notifyObservers(arg);
         }
     }
 
@@ -57,8 +58,18 @@ public class MyViewModel extends Observable implements Observer {
         return this.imodel.getMaze().getGrid();
     }
 
-    public void movePlayer(KeyEvent moveEvent){
-        this.imodel.movePlayer(moveEvent);
+    public void movePlayer(KeyEvent keyEvent){
+        MovementDirection direction = MovementDirection.DOWN;
+        switch (keyEvent.getCode()){
+            case UP: direction = MovementDirection.UP;
+            case DOWN : direction = MovementDirection.DOWN;
+            case LEFT : direction = MovementDirection.LEFT;
+            case RIGHT :direction = MovementDirection.RIGHT;
+            imodel.updatePlayerLocation(direction);
+            default : {
+               return;
+            }
+        }
     }
 
     public void saveMaze(File f){
@@ -75,12 +86,12 @@ public class MyViewModel extends Observable implements Observer {
     }
 
     public int getPlayerRow() {
-        int row = imodel.getCharacterPositionRow();
+        int row = imodel.getPlayerRow();
         return row;
     }
 
     public int getPlayerCol() {
-        int col = imodel.getCharacterPositionColumn();
+        int col = imodel.getPlayerCol();
         return col;
     }
 }

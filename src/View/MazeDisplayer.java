@@ -81,6 +81,10 @@ public class MazeDisplayer extends Canvas {
             double canvasWidth = getWidth();
             int rows = maze.length;
             int cols = maze[0].length;
+            /*System.out.println("***");
+            System.out.println("R: " + rows + " C: " + cols);
+            System.out.println("***");*/
+
 
             double cellHeight = canvasHeight / rows;
             double cellWidth = canvasWidth / cols;
@@ -140,5 +144,9 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.fillRect(x, y, cellWidth, cellHeight);
         else
             graphicsContext.drawImage(playerImage, x, y, cellWidth, cellHeight);
+    }
+
+    public void setMaze(int[][] maze) {
+        this.maze = maze;
     }
 }
