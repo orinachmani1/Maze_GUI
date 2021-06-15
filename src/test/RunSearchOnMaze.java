@@ -4,7 +4,7 @@ import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.*;
-import org.junit.jupiter.api.DynamicTest;
+//import org.junit.jupiter.api.DynamicTest;
 
 import java.util.ArrayList;
 

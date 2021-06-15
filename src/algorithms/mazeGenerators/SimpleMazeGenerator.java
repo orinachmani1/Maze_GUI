@@ -1,6 +1,6 @@
 package algorithms.mazeGenerators;
 
-import org.junit.jupiter.api.DynamicTest;
+//import org.junit.jupiter.api.DynamicTest;
 
 import java.util.Random;
 

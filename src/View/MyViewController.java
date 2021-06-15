@@ -10,7 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import sample.Main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
@@ -144,4 +146,7 @@ public class MyViewController implements IView, Observer, Initializable {
     }
 
 
+    public void NewButtonPressed(ActionEvent actionEvent) throws IOException {
+        Main.reset();
+    }
 }
