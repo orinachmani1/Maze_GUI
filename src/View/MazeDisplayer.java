@@ -36,7 +36,8 @@ public class MazeDisplayer extends Canvas {
     {
         setImageFileNamePlayer("Resources/boy.jpg");
         setImageFileNameWall("Resources/nemo.PNG");
-        setImageFileNameGoal("Resources/t1.jpg");
+        //setImageFileNameWall("Resources/shark.jpg");
+        setImageFileNameGoal("Resources/goal.png");
         setImageFileNameWinner("Resources/winner.jpg");
         setImageFileNamePath("Resources/green.PNG");
     }
@@ -197,6 +198,10 @@ public class MazeDisplayer extends Canvas {
         int playerCurrentRow = this.playerRow;
         int playerCurrentCol = this.playerCol;
 
+        int goalRow = this.goalRow;
+        int goalCol = this.goalCol;
+        String goalState= String.format("{%d,%d}", goalRow, goalCol);
+
         Image pathImage = null;
         try {
             pathImage = new Image(new FileInputStream(getImageFileNamePath()));
@@ -217,7 +222,8 @@ public class MazeDisplayer extends Canvas {
                 if ((row != playerCurrentRow) || (col != playerCurrentCol))
                 {
                     boolean partOfSolution = checkState(solutionList,curState);
-                    if (partOfSolution) {
+                    boolean isGoal = curState.equals(goalState);
+                    if (partOfSolution && !isGoal) {
                         graphicsContext.drawImage(pathImage, col * cellWidth, row * cellHeight, cellWidth, cellHeight);
                     }
                 }
@@ -239,9 +245,10 @@ public class MazeDisplayer extends Canvas {
         for (int i = 0; i < solutionList.size(); i++ )
         {
             String state = solutionList.get(i).toString();
-            System.out.println(state);
+            //System.out.println(state);
             solutionStates.add(state);
         }
+        solutionStates.removeFirst();
         boolean found = solutionStates.contains(curState);
         return found;
     }
