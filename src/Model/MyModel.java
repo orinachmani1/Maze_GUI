@@ -63,6 +63,8 @@ public class MyModel extends Observable implements IModel {
         MyMazeGenerator generator = new MyMazeGenerator();
         Maze m = generator.generate(rows,cols);
         this.maze = m;
+        setGoalRow(this.maze.getGoalPosition().getRowIndex());
+        setGoalColumn(this.maze.getGoalPosition().getColumnIndex());
         setChanged();
         notifyObservers("maze generated");
         System.out.println("generated");
@@ -119,25 +121,6 @@ public class MyModel extends Observable implements IModel {
                 }
 
             }
-//            switch (direction) {
-//                case UP: {
-//                    if (playerRow > 0)
-//                        movePlayer(playerRow - 1, playerCol);
-//                }
-//                case DOWN : {
-//                    if (playerRow < maze.getRows() - 1)
-//                        movePlayer(playerRow + 1, playerCol);
-//                }
-//                case LEFT :{
-//                    if (playerCol > 0)
-//                        movePlayer(playerRow, playerCol - 1);
-//                }
-//                case RIGHT : {
-//                    if (playerCol < maze.getCols() - 1)
-//                        movePlayer(playerRow, playerCol + 1);
-//                }
-//                default:return;
-//            }
         }
 
     public void movePlayer(int row, int col){
@@ -148,7 +131,9 @@ public class MyModel extends Observable implements IModel {
             this.playerCol = col;
             setChanged();
             notifyObservers("player moved");
-            if(this.playerRow==this.goalRow && this.playerCol==this.goalColumn)
+            System.out.println("playerRow: " +playerRow +  "playerCol: " +playerCol + "GoalRow: " +goalRow + "GoalCol: " +goalColumn );
+            if(this.playerRow==this.goalRow && this.playerCol==this.goalColumn &&
+                    this.goalRow!=0)
             {
                 setChanged();
                 notifyObservers("maze solved");

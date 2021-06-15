@@ -92,14 +92,28 @@ public class MyViewController implements IView, Observer, Initializable {
         String change = (String) arg;
         System.out.println("UPDATED: " + change);
         if (change==null){return;}
-        switch (change){
-            case ("maze generated"):
-                mazeGenerated();
-            case ("player moved") :
-                playerMoved();
-            case ("maze solved"):
-                mazeSolved();
+
+        if (change.equals("maze generated"))
+        {
+            mazeGenerated();
         }
+        if (change.equals("player moved"))
+        {
+            playerMoved();
+        }
+        if (change.equals("maze solved"))
+        {
+            mazeSolved();
+        }
+
+//        switch (change){
+//            case ("maze generated"):
+//                mazeGenerated();
+//            case ("player moved") :
+//                playerMoved();
+//            case ("maze solved"):
+//                mazeSolved();
+//        }
     }
 
     private void mazeSolved() {

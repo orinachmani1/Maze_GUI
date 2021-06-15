@@ -47,7 +47,7 @@ public class MyViewModel extends Observable implements Observer {
             characterRow.set(characterPositionRowIndex + "");
             characterPositionColumnIndex = this.imodel.getPlayerCol();
             characterColumn.set(characterPositionColumnIndex + "");
-            Solution solution= this.imodel.getSolution();
+            //Solution solution= this.imodel.getSolution();
             setChanged();
             notifyObservers(arg);
         }
