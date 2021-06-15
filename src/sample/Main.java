@@ -42,10 +42,6 @@ public class Main extends Application {
         MyViewController view = fxmlLoader.getController();
         view.setViewModel(viewModel);
         Main.mazeNew.setScene(scene);
-
-
-
-
     }
 
     public static void main(String[] args) {

@@ -7,6 +7,8 @@ import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.mazeGenerators.Position;
+import algorithms.search.BestFirstSearch;
+import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
@@ -31,6 +33,7 @@ public class MyModel extends Observable implements IModel {
     private int playerCol = 0;
     private int goalRow;
     private int goalColumn;
+    boolean win = false;
 
     public MyModel()
     {
@@ -83,7 +86,16 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void solveMaze() {
-        //this.solution =
+        if (this.maze!=null)
+        {
+            SearchableMaze searchableMaze = new SearchableMaze(this.maze);
+            BestFirstSearch bfs = new BestFirstSearch();
+            Solution sol = bfs.solve(searchableMaze);
+            this.solution = sol;
+            setChanged();
+            notifyObservers("solution");
+        }
+
     }
 
     @Override
@@ -135,6 +147,7 @@ public class MyModel extends Observable implements IModel {
             if(this.playerRow==this.goalRow && this.playerCol==this.goalColumn &&
                     this.goalRow!=0)
             {
+                this.win = true;
                 setChanged();
                 notifyObservers("maze solved");
             }

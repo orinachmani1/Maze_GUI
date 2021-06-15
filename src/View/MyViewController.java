@@ -1,15 +1,20 @@
 package View;
 
 import ViewModel.MyViewModel;
+import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import sample.Main;
 
 import java.io.IOException;
@@ -17,6 +22,7 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 public class MyViewController implements IView, Observer, Initializable {
     public MyViewModel viewModel;
@@ -103,9 +109,17 @@ public class MyViewController implements IView, Observer, Initializable {
         {
             playerMoved();
         }
+        if (change.equals("solution"))
+        {
+            solution();
+        }
         if (change.equals("maze solved"))
         {
-            mazeSolved();
+            try {
+                mazeSolved();
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
 //        switch (change){
@@ -118,9 +132,40 @@ public class MyViewController implements IView, Observer, Initializable {
 //        }
     }
 
-    private void mazeSolved() {
+    public void solution() {
+        Solution sol = viewModel.getSolution();
+        mazeDisplayer.setSolution(sol);
+        System.out.println("solution updated");
+    }
+
+    private void mazeSolved() throws IOException, InterruptedException {
         System.out.println("winner!");
+        //mazeDisplayer.winner=true;
+        //mazeDisplayer.draw();
+        //Rules();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("You won!!\nCongratulations!!");
+        alert.show();
         mazeDisplayer.setSolution(viewModel.getSolution());
+        //mazeDisplayer.draw();
+        //TimeUnit.SECONDS.sleep(2);
+        Main.reset();
+
+
+    }
+
+    public void Rules(){
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Rules of the game");
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root = fxmlLoader.load(getClass().getResource("Rules.fxml")/*.openStream()*/);
+            Scene scene = new Scene(root, 500, 180);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+
+        }
     }
 
     private void playerMoved() {
@@ -149,4 +194,9 @@ public class MyViewController implements IView, Observer, Initializable {
     public void NewButtonPressed(ActionEvent actionEvent) throws IOException {
         Main.reset();
     }
+
+    public void about(ActionEvent actionEvent) {
+        Rules();
+    }
 }
+
