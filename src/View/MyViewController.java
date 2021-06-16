@@ -14,9 +14,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.Main;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
@@ -82,9 +84,16 @@ public class MyViewController implements IView, Observer, Initializable {
     }
 
     public void keyPressed(KeyEvent keyEvent) {
-        //System.out.println("please");
         viewModel.movePlayer(keyEvent);
         keyEvent.consume();
+        //System.out.println("please");
+        if(keyEvent.getCode().getName().equals("Ctrl"))
+        {
+            mazeDisplayer.Zoom();
+            keyEvent.consume();
+            return;
+        }
+
     }
 
     public void setPlayerPosition(int row, int col){
@@ -123,6 +132,10 @@ public class MyViewController implements IView, Observer, Initializable {
                 e.printStackTrace();
             }
         }
+        if (change.equals("Load Maze"))
+        {
+            LoadMaze();
+        }
 
 //        switch (change){
 //            case ("maze generated"):
@@ -134,23 +147,29 @@ public class MyViewController implements IView, Observer, Initializable {
 //        }
     }
 
+    public void LoadMaze() {
+        mazeDisplayer.setGoalRow(getGoalRow());
+        mazeDisplayer.setGoalCol(getGoalCol());
+        mazeDisplayer.setPlayerPosition(viewModel.getGoalRow(),viewModel.getPlayerCol());
+        this.setUpdatePlayerRow(0);
+        this.setUpdatePlayerCol(0);
+
+        mazeDisplayer.drawMaze(viewModel.getMaze());
+
+    }
+
     public void solution() {
         Solution sol = viewModel.getSolution();
         mazeDisplayer.setSolution(sol);
-        System.out.println("solution updated");
+        //System.out.println("solution updated");
     }
 
     private void mazeSolved() throws IOException, InterruptedException {
         System.out.println("winner!");
-        //mazeDisplayer.winner=true;
-        //mazeDisplayer.draw();
-        //Rules();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("You won!!\nCongratulations!!");
         alert.show();
         mazeDisplayer.setSolution(viewModel.getSolution());
-        //mazeDisplayer.draw();
-        //TimeUnit.SECONDS.sleep(2);
         Main.reset();
 
 
@@ -177,6 +196,10 @@ public class MyViewController implements IView, Observer, Initializable {
     private void mazeGenerated() {
         mazeDisplayer.setGoalRow(getGoalRow());
         mazeDisplayer.setGoalCol(getGoalCol());
+        mazeDisplayer.setPlayerPosition(0,0);
+        this.setUpdatePlayerRow(0);
+        this.setUpdatePlayerCol(0);
+
         mazeDisplayer.drawMaze(viewModel.getMaze());
     }
 
@@ -216,7 +239,32 @@ public class MyViewController implements IView, Observer, Initializable {
     }
     public void PropertiesButtonPressed(ActionEvent actionEvent) {
         Properties();
+    }
 
+    public void SaveButtonPressed(ActionEvent actionEvent) {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Maze Saver Dialog");
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("MAZE files (*.maze)", "*.maze");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File f = fileChooser.showSaveDialog(null);
+        if (f != null) {
+            viewModel.saveMaze(f);
+        }
+
+    }
+
+    public void LoadButtonPressed(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Maze Loader Dialog");
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("MAZE files (*.maze)", "*.maze");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File f = fileChooser.showOpenDialog(null);
+        if (f != null && f.exists() && !f.isDirectory()) {
+            viewModel.loadMaze(f);
+        }
     }
 }
 

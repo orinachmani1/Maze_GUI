@@ -76,35 +76,14 @@ public class MyViewModel extends Observable implements Observer {
         if (key.equals("Numpad 7")){direction = MovementDirection.UPLEFT;}
         if (key.equals("Numpad 9")){direction = MovementDirection.UPRIGHT;}
         imodel.updatePlayerLocation(direction);
-
-//        switch (key){
-//            case "Right" :direction = MovementDirection.RIGHT;
-//            case "Up" : direction = MovementDirection.UP;
-//            case "Down" : direction = MovementDirection.DOWN;
-//            case "Left" : direction = MovementDirection.LEFT;
-//            imodel.updatePlayerLocation(direction);
-//            default : {
-//                return;
-//            }
-//        }
-//        switch (keyEvent.getCode()){
-//            case RIGHT :direction = MovementDirection.RIGHT;
-//            case UP: direction = MovementDirection.UP;
-//            case DOWN : direction = MovementDirection.DOWN;
-//            case LEFT : direction = MovementDirection.LEFT;
-//            imodel.updatePlayerLocation(direction);
-//            default : {
-//               return;
-//            }
-//        }
     }
 
     public void saveMaze(File f){
         imodel.saveMaze(f);
     }
 
-    public void loadMaze(File f){
-        imodel.loadMaze(f);
+    public void loadMaze(File file){
+        imodel.loadMaze(file);
     }
 
     public Solution getSolution() {

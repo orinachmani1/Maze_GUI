@@ -4,9 +4,11 @@ import algorithms.search.AState;
 import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
@@ -128,9 +130,9 @@ public class MazeDisplayer extends Canvas {
             if(!this.winner)
             {
                 drawMazeWalls(graphicsContext, cellHeight, cellWidth, rows, cols);
-                drawGoal(graphicsContext, cellHeight, cellWidth);
                 if(solution != null)
                     drawSolution(graphicsContext, cellHeight, cellWidth);
+                drawGoal(graphicsContext, cellHeight, cellWidth);
                 drawPlayer(graphicsContext, cellHeight, cellWidth);
             }
             /*else
@@ -318,4 +320,26 @@ public class MazeDisplayer extends Canvas {
     {
         return this.goalCol;
     }
+    public void Zoom(){
+        setOnScroll(new EventHandler<ScrollEvent>() {
+            @Override
+            public void handle(ScrollEvent scrollEvent) {
+                double zoom_fac = 1.05;
+                double delta_y = scrollEvent.getDeltaY();
+                if(delta_y < 0) {
+                    zoom_fac = 2.0 - zoom_fac;
+                    setScaleX(getScaleX()*zoom_fac);
+                    setScaleY(getScaleY()*zoom_fac);
+                }
+                else
+                {
+                    zoom_fac = 1.05;
+                    setScaleX(getScaleX()*zoom_fac);
+                    setScaleY(getScaleY()*zoom_fac);
+                }
+                scrollEvent.consume();
+            }
+        });
+    }
+
 }

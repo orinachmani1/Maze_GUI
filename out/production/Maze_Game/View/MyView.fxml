@@ -21,6 +21,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints />
                   <RowConstraints />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
                     </rowConstraints>
                     <Label text="Maze rows:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <Label text="Maze columns:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
@@ -32,6 +33,7 @@
                     <Label text="Player Col = " GridPane.rowIndex="5" />
                     <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <Label fx:id="steps" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                 </GridPane>
             </children>
             <padding>
@@ -54,8 +56,8 @@
                         <Menu mnemonicParsing="false" text="File">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#NewButtonPressed" text="New" />
-                                <MenuItem mnemonicParsing="false" onAction="#NewButtonPressed" text="Save" />
-                                <MenuItem mnemonicParsing="false" onAction="#NewButtonPressed" text="Load" />
+                                <MenuItem mnemonicParsing="false" onAction="#SaveButtonPressed" text="Save" />
+                                <MenuItem mnemonicParsing="false" onAction="#LoadButtonPressed" text="Load" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Options">

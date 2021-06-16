@@ -15,10 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import sample.Main;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Observable;
@@ -223,12 +220,42 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void saveMaze(File f) {
-
+        try
+        {
+            if (f.exists()) {
+                f.delete();
+            }
+            f.createNewFile();
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(f));
+            out.writeObject(maze);
+            out.flush();
+            out.close();
+        }
+        catch (IOException e) {
+        }
     }
 
     @Override
-    public void loadMaze(File f) {
+    public void loadMaze(File file) {
+        try{
+            ObjectInputStream objectInputStream= new ObjectInputStream((new FileInputStream(file)));
+            this.maze = (Maze) objectInputStream.readObject();
 
+            playerRow = maze.getStartPosition().getRowIndex();
+            playerCol = maze.getStartPosition().getColumnIndex();
+
+            goalRow = maze.getGoalPosition().getRowIndex();
+            goalColumn = maze.getGoalPosition().getColumnIndex();
+
+            solution = null;
+            this.win = false;
+
+            setChanged();
+            notifyObservers("Load Maze");
+
+        }catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
