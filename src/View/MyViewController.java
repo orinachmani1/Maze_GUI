@@ -199,6 +199,7 @@ public class MyViewController implements IView, Observer, Initializable {
         mazeDisplayer.setPlayerPosition(0,0);
         this.setUpdatePlayerRow(0);
         this.setUpdatePlayerCol(0);
+        mazeDisplayer.setSolution(null);
 
         mazeDisplayer.drawMaze(viewModel.getMaze());
     }
