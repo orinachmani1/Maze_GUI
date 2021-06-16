@@ -63,16 +63,18 @@ public class MyViewController implements IView, Observer, Initializable {
         this.updatePlayerCol.set(updatePlayerCol + "");
     }
 
-    public void generateMaze(ActionEvent actionEvent) {
+    public void generateMaze(ActionEvent actionEvent) throws IOException {
         int rows= Integer.valueOf(textField_mazeRows.getText());
         int cols= Integer.valueOf(textField_mazeColumns.getText());
         viewModel.generateMaze(rows, cols);
         int[][] maze = viewModel.getMaze();
+        this.mazeDisplayer.setPlayerPosition(0,0);
         this.mazeDisplayer.setMaze(maze);
         this.mazeDisplayer.drawMaze(maze);
     }
 
     public void solveMaze(ActionEvent actionEvent) {
+        if(this.viewModel.getMaze()==null){return;}
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Solving maze...");
         alert.show();
@@ -154,13 +156,13 @@ public class MyViewController implements IView, Observer, Initializable {
 
     }
 
-    public void Rules(){
+    public void About(){
         try {
             Stage stage = new Stage();
-            stage.setTitle("Rules of the game");
+            stage.setTitle("About the game");
             FXMLLoader fxmlLoader = new FXMLLoader();
-            Parent root = fxmlLoader.load(getClass().getResource("Rules.fxml")/*.openStream()*/);
-            Scene scene = new Scene(root, 500, 180);
+            Parent root = fxmlLoader.load(getClass().getResource("About.fxml")/*.openStream()*/);
+            Scene scene = new Scene(root, 450, 255);
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
@@ -196,7 +198,25 @@ public class MyViewController implements IView, Observer, Initializable {
     }
 
     public void about(ActionEvent actionEvent) {
-        Rules();
+        About();
+    }
+
+    public void Properties(){
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("About the game");
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root = fxmlLoader.load(getClass().getResource("Properties.fxml")/*.openStream()*/);
+            Scene scene = new Scene(root, 450, 255);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+
+        }
+    }
+    public void PropertiesButtonPressed(ActionEvent actionEvent) {
+        Properties();
+
     }
 }
 

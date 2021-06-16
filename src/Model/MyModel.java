@@ -13,8 +13,10 @@ import algorithms.search.Solution;
 import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import sample.Main;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
@@ -63,6 +65,7 @@ public class MyModel extends Observable implements IModel {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }*/
+        //Main.reset();
         MyMazeGenerator generator = new MyMazeGenerator();
         Maze m = generator.generate(rows,cols);
         this.maze = m;
@@ -70,7 +73,7 @@ public class MyModel extends Observable implements IModel {
         setGoalColumn(this.maze.getGoalPosition().getColumnIndex());
         setChanged();
         notifyObservers("maze generated");
-        System.out.println("generated");
+        //System.out.println("generated");
         //this.maze=new Maze(rows,cols);
     }
 
@@ -108,29 +111,54 @@ public class MyModel extends Observable implements IModel {
 
         if (maze!=null)
         {
-               if (key.equals("UP"))
-               {
-                   if (playerRow > 0)
-                       movePlayer(playerRow - 1, playerCol);
-               }
+            if (key.equals("UP"))
+            {
+                if (playerRow > 0)
+                    movePlayer(playerRow - 1, playerCol);
+            }
+            if (key.equals("DOWN"))
+            {
+                if (playerRow < maze.getRows() - 1)
+                    movePlayer(playerRow + 1, playerCol);
+            }
 
-               if (key.equals("DOWN"))
-                {
-                    if (playerRow < maze.getRows() - 1)
-                        movePlayer(playerRow + 1, playerCol);
-                }
+            if (key.equals("LEFT"))
+            {
+                if (playerCol > 0)
+                    movePlayer(playerRow, playerCol - 1);
+            }
+            if (key.equals("RIGHT"))
+            {
+                if (playerCol < maze.getCols() - 1)
+                    movePlayer(playerRow, playerCol + 1);
+            }
 
-                if (key.equals("LEFT"))
-                {
-                    if (playerCol > 0)
-                        movePlayer(playerRow, playerCol - 1);
-                }
+            if (key.equals("UPRIGHT"))
+            {
+                if (playerCol < maze.getCols() - 1 && playerRow < maze.getRows() - 1)
+                    movePlayer(playerRow-1, playerCol + 1);
+            }
 
-                if (key.equals("RIGHT"))
-                {
-                    if (playerCol < maze.getCols() - 1)
-                        movePlayer(playerRow, playerCol + 1);
-                }
+            if (key.equals("UPLEFT"))
+            {
+                if (playerCol < maze.getCols() - 1 && playerRow < maze.getRows() - 1)
+                    movePlayer(playerRow-1, playerCol - 1);
+            }
+
+            if (key.equals("DOWNLEFT"))
+            {
+                if (playerCol < maze.getCols() - 1 && playerRow < maze.getRows() - 1)
+                    movePlayer(playerRow+1, playerCol - 1);
+            }
+
+            if (key.equals("DOWNRIGHT"))
+            {
+                if (playerCol < maze.getCols() - 1 && playerRow < maze.getRows() - 1)
+                    movePlayer(playerRow+1, playerCol + 1);
+            }
+
+
+
 
             }
         }

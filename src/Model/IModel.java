@@ -6,11 +6,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Observer;
 
 public interface IModel {
 
-    void generateMaze(int rows, int cols);
+    void generateMaze(int rows, int cols) throws IOException;
     Maze getMaze();
     Solution getSolution();
     void solveMaze();

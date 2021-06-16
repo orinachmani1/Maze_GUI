@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -31,7 +32,7 @@ public class MyViewModel extends Observable implements Observer {
         this.imodel.assignObserver(this);
     }
 
-    public void generateMaze(int rows, int cols){
+    public void generateMaze(int rows, int cols) throws IOException {
         imodel.generateMaze(rows, cols);
     }
 
@@ -61,14 +62,19 @@ public class MyViewModel extends Observable implements Observer {
     }
 
     public void movePlayer(KeyEvent keyEvent){
-        MovementDirection direction = MovementDirection.DOWN;
+        MovementDirection direction = null;
         System.out.println(keyEvent.getCode());
         String key = keyEvent.getCode().getName();
+        System.out.println(key);
 
-        if (key.equals("Right")){direction = MovementDirection.RIGHT;}
-        if (key.equals("Up")){direction = MovementDirection.UP;}
-        if (key.equals("Down")){direction = MovementDirection.DOWN;}
-        if (key.equals("Left")){direction = MovementDirection.LEFT;}
+        if (key.equals("Right")|| key.equals("Numpad 6")){direction = MovementDirection.RIGHT;}
+        if (key.equals("Up")|| key.equals("Numpad 8")){direction = MovementDirection.UP;}
+        if (key.equals("Down")|| key.equals("Numpad 2")){direction = MovementDirection.DOWN;}
+        if (key.equals("Left")|| key.equals("Numpad 4")){direction = MovementDirection.LEFT;}
+        if (key.equals("Numpad 1")){direction = MovementDirection.DOWNLEFT;}
+        if (key.equals("Numpad 3")){direction = MovementDirection.DOWNRIGHT;}
+        if (key.equals("Numpad 7")){direction = MovementDirection.UPLEFT;}
+        if (key.equals("Numpad 9")){direction = MovementDirection.UPRIGHT;}
         imodel.updatePlayerLocation(direction);
 
 //        switch (key){
