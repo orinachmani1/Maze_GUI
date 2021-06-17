@@ -11,12 +11,15 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import java.io.File;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class Main extends Application {
     public static Stage mazeNew;
@@ -24,9 +27,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        File musicPath=new File("resources/GameOT.mp3");
-        music=new MediaPlayer(new Media(musicPath.toURI().toString()));
-        music.play();
+//        File musicPath=new File("..//Resources/GameOT.mp3");
+//        music=new MediaPlayer(new Media(musicPath.toURI().toString()));
+//        music.play();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/MyView.fxml"));
         Parent root = fxmlLoader.load();

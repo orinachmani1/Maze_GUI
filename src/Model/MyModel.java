@@ -74,6 +74,8 @@ public class MyModel extends Observable implements IModel {
         this.maze = m;
         setGoalRow(this.maze.getGoalPosition().getRowIndex());
         setGoalColumn(this.maze.getGoalPosition().getColumnIndex());
+        playerCol=0;
+        playerRow=0;
         this.solution=null;
         setChanged();
         notifyObservers("maze generated");

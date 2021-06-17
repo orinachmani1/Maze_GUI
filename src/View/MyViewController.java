@@ -84,8 +84,8 @@ public class MyViewController implements IView, Observer, Initializable {
     }
 
     public void keyPressed(KeyEvent keyEvent) {
-        viewModel.movePlayer(keyEvent);
-        keyEvent.consume();
+
+
         //System.out.println("please");
         if(keyEvent.getCode().getName().equals("Ctrl"))
         {
@@ -93,6 +93,11 @@ public class MyViewController implements IView, Observer, Initializable {
             keyEvent.consume();
             return;
         }
+        else
+            {
+                viewModel.movePlayer(keyEvent);
+                keyEvent.consume();
+            }
 
     }
 
@@ -136,26 +141,15 @@ public class MyViewController implements IView, Observer, Initializable {
         {
             LoadMaze();
         }
-
-//        switch (change){
-//            case ("maze generated"):
-//                mazeGenerated();
-//            case ("player moved") :
-//                playerMoved();
-//            case ("maze solved"):
-//                mazeSolved();
-//        }
     }
 
     public void LoadMaze() {
         mazeDisplayer.setGoalRow(getGoalRow());
         mazeDisplayer.setGoalCol(getGoalCol());
-        mazeDisplayer.setPlayerPosition(viewModel.getGoalRow(),viewModel.getPlayerCol());
+        mazeDisplayer.setPlayerPosition(0,0);
         this.setUpdatePlayerRow(0);
         this.setUpdatePlayerCol(0);
-
         mazeDisplayer.drawMaze(viewModel.getMaze());
-
     }
 
     public void solution() {
