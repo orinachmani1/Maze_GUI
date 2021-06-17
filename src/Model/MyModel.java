@@ -42,9 +42,9 @@ public class MyModel extends Observable implements IModel {
     {
          viewM= new MyViewModel(this);
         mazeD=new MazeDisplayer();
-        //this.serverGenerateMaze =  new Server(5400, 1000, new ServerStrategyGenerateMaze());
-        //this.serverSolveSearchMaze =  new Server(5401, 1000, new ServerStrategySolveSearchProblem());
-        //startServers();
+        this.serverGenerateMaze =  new Server(5400, 1000, new ServerStrategyGenerateMaze());
+        this.serverSolveSearchMaze =  new Server(5401, 1000, new ServerStrategySolveSearchProblem());
+        startServers();
     }
 
 
@@ -55,32 +55,53 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
-    public void generateMaze(int rows, int cols) {
-        /*
+    public void generateMaze(int rows, int cols) throws UnknownHostException {
+
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
                 @Override
                 public void clientStrategy(InputStream inputStream, OutputStream outputStream) {
-                    //TODO!!!
-                }
+                        try {
+                            ObjectOutputStream toServer = new ObjectOutputStream(outputStream);
+                            ObjectInputStream fromServer = new ObjectInputStream(inputStream);
+                            toServer.flush();
+                            int[] mazeDimensions = new int[]{cols,rows};
+                            toServer.writeObject(mazeDimensions); //send maze dimensions to server
+                            toServer.flush();
+                            byte[] compressedMaze = (byte[]) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
+                            InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
+                            byte[] decompressedMaze = new byte[rows * cols + 10000/*CHANGE SIZE ACCORDING TO YOU MAZE SIZE*/]; //allocating byte[] for the decompressed maze -
+                            is.read(decompressedMaze); //Fill decompressedMaze with bytes
+                            maze = new Maze(decompressedMaze);
+                            playerRow=maze.getStartPosition().getRowIndex();
+                            playerCol=maze.getStartPosition().getColumnIndex();
+                            goalRow = maze.getGoalPosition().getRowIndex();
+                            goalColumn = maze.getGoalPosition().getColumnIndex();
+
+                            /* locate here because all the command need to be exacute in before communicate with server*/
+                            setChanged();
+                            notifyObservers("maze generated");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
             });
             client.communicateWithServer();
         } catch (UnknownHostException e) {
             e.printStackTrace();
-        }*/
-        //Main.reset();
-        MyMazeGenerator generator = new MyMazeGenerator();
-        Maze m = generator.generate(rows,cols);
-        this.maze = m;
-        setGoalRow(this.maze.getGoalPosition().getRowIndex());
-        setGoalColumn(this.maze.getGoalPosition().getColumnIndex());
-        playerCol=0;
-        playerRow=0;
-        this.solution=null;
-        setChanged();
-        notifyObservers("maze generated");
-        //System.out.println("generated");
-        //this.maze=new Maze(rows,cols);
+        }
+
+//        MyMazeGenerator generator = new MyMazeGenerator();
+//        Maze m = generator.generate(rows,cols);
+//        this.maze = m;
+//        setGoalRow(this.maze.getGoalPosition().getRowIndex());
+//        setGoalColumn(this.maze.getGoalPosition().getColumnIndex());
+//        playerCol=0;
+//        playerRow=0;
+//        this.solution=null;
+//          setChanged();
+//          notifyObservers("maze generated");
+
     }
 
     @Override
@@ -95,7 +116,30 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void solveMaze() {
-        if (this.maze!=null)
+        try {
+            Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
+                @Override
+                public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
+                    try {
+                        ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
+                        ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
+                        toServer.flush();
+                        toServer.writeObject(maze); //send maze to server
+                        toServer.flush();
+                        solution = (Solution) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
+                        /* locate here because all the command need to be exacute in before communicate with server*/
+                        setChanged();
+                        notifyObservers("solution");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }); client.communicateWithServer();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        /*if (this.maze!=null)
         {
             SearchableMaze searchableMaze = new SearchableMaze(this.maze);
             BestFirstSearch bfs = new BestFirstSearch();
@@ -103,7 +147,7 @@ public class MyModel extends Observable implements IModel {
             this.solution = sol;
             setChanged();
             notifyObservers("solution");
-        }
+        }*/
 
     }
 
