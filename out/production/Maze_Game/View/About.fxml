@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<BorderPane stylesheets="@About.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal">
+<left>
+    <GridPane>
+
+        <TextArea
+            editable="false" prefHeight="500" prefWidth="500" stylesheets="@About.css" text=
+                "Welcome to the maze of Ori and Shahar!!
+        &#10;&#10;Goal: You must help our brave diver reach the treasure.
+         &#10;&#10;Rules: Advance with the keys (Up, Down, Right, Left)
+        &#10;             or with the digits 1-8.
+        &#10;Note: You can also move diagonally."
+                  xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" >
+    </TextArea>
+    </GridPane>
+
+</left>
+
+</BorderPane>
