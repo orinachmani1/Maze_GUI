@@ -139,11 +139,16 @@ public class MyViewController implements IView, Observer, Initializable {
         }
         if (change.equals("Load Maze"))
         {
-            LoadMaze();
+            try {
+                LoadMaze();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void LoadMaze() {
+    public void LoadMaze() throws IOException {
+        mazeDisplayer.setSolution(null);
         mazeDisplayer.setGoalRow(getGoalRow());
         mazeDisplayer.setGoalCol(getGoalCol());
         mazeDisplayer.setPlayerPosition(0,0);
