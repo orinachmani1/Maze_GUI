@@ -21,12 +21,9 @@ import java.util.Observer;
 public class MyViewModel extends Observable implements Observer {
 
     private IModel imodel;
-
     private int characterPositionRowIndex;
     private int characterPositionColumnIndex;
-
     private Solution solution;
-
     public StringProperty characterRow = new SimpleStringProperty("");
     public StringProperty characterColumn = new SimpleStringProperty("");
 
@@ -51,7 +48,6 @@ public class MyViewModel extends Observable implements Observer {
             characterRow.set(characterPositionRowIndex + "");
             characterPositionColumnIndex = this.imodel.getPlayerCol();
             characterColumn.set(characterPositionColumnIndex + "");
-            //Solution solution= this.imodel.getSolution();
             setChanged();
             notifyObservers(arg);
         }
@@ -66,9 +62,7 @@ public class MyViewModel extends Observable implements Observer {
 
     public void movePlayer(KeyEvent keyEvent){
         MovementDirection direction = null;
-        System.out.println(keyEvent.getCode());
         String key = keyEvent.getCode().getName();
-        System.out.println(key);
 
         if (key.equals("Right")|| key.equals("Numpad 6")){direction = MovementDirection.RIGHT;}
         if (key.equals("Up")|| key.equals("Numpad 8")){direction = MovementDirection.UP;}
@@ -117,38 +111,30 @@ public class MyViewModel extends Observable implements Observer {
 
     public void moveByMouse(KeyCode content) {
         imodel=new MyModel();
-        MovementDirection wayToMove;
-        wayToMove=MovementDirection.DOWN;
-            if (content.equals(KeyCode.UP))
-            {
-                wayToMove=MovementDirection.UP;
-          //      imodel.updatePlayerLocation(wayToMove);
-
-            }
+        MovementDirection wayToMove = null;
+        //wayToMove=MovementDirection.DOWN;
+        if (content.equals(KeyCode.UP))
+        {
+            wayToMove=MovementDirection.UP;
+        }
         if (content.equals(KeyCode.DOWN))
         {
-            //wayToMove=MovementDirection.DOWN;
-        //    imodel.updatePlayerLocation(wayToMove);
+            wayToMove=MovementDirection.DOWN;
         }
         if (content.equals(KeyCode.LEFT)) {
             wayToMove = MovementDirection.LEFT;
-         //   imodel.updatePlayerLocation(wayToMove);
         }
         if (content.equals(KeyCode.RIGHT))
         {
             wayToMove=MovementDirection.RIGHT;
-
-           // imodel.updatePlayerLocation(wayToMove);
         }
-      //  imodel.updatePlayerLocation(wayToMove);
 
-            }
-
+    }
 
     public void moveByMouse(MouseEvent mouseEvent, MazeDisplayer mazeDisplayer ){
     imodel.MouseMovePlayer(mouseEvent,mazeDisplayer);
     }
-        }
+}
 
 
 

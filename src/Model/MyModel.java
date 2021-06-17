@@ -6,16 +6,9 @@ import IO.*;
 import View.MazeDisplayer;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MyMazeGenerator;
-import algorithms.mazeGenerators.Position;
-import algorithms.search.BestFirstSearch;
-import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
-import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import sample.Main;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -181,8 +174,6 @@ public class MyModel extends Observable implements IModel {
             {
                 if (playerCol < maze.getCols() - 1)
                 movePlayer(playerRow, playerCol + 1);
-
-                //System.out.println("Yaminaaaaaa");
             }
 
             if (key.equals("UPRIGHT"))
@@ -209,11 +200,8 @@ public class MyModel extends Observable implements IModel {
                     movePlayer(playerRow+1, playerCol + 1);
             }
 
-
-
-
-            }
         }
+    }
 
     public void movePlayer(int row, int col){
         int valid = maze.getGrid()[row][col];
@@ -223,7 +211,6 @@ public class MyModel extends Observable implements IModel {
             this.playerCol = col;
             setChanged();
             notifyObservers("player moved");
-            System.out.println("playerRow: " +playerRow +  "playerCol: " +playerCol + "GoalRow: " +goalRow + "GoalCol: " +goalColumn );
             if(this.playerRow==this.goalRow && this.playerCol==this.goalColumn &&
                     this.goalRow!=0)
             {
@@ -291,12 +278,8 @@ public class MyModel extends Observable implements IModel {
     }
     public void MouseMovePlayer(MouseEvent mouseEvent, MazeDisplayer mazeDisplayer) {
         if (maze != null) {
-
-
             double xValue = mouseEvent.getX() / (mazeDisplayer.getWidth() / maze.getGrid()[0].length);
-
             double firstDouble = mouseEvent.getY();
-
             double yValue = firstDouble / (mazeDisplayer.getHeight() / maze.getGrid().length);
 
             if (yValue < mazeDisplayer.getPlayerRow()) {
@@ -315,8 +298,6 @@ public class MyModel extends Observable implements IModel {
             }
             //updatePlayerLocation(MovementDirection.RIGHT);
             mazeD.draw();
-
-
         }
     }
 

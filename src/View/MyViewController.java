@@ -16,7 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import sample.Main;
+import Main.Main;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +24,6 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 public class MyViewController implements IView, Observer, Initializable {
     public MyViewModel viewModel;
@@ -164,7 +163,7 @@ public class MyViewController implements IView, Observer, Initializable {
     }
 
     private void mazeSolved() throws IOException, InterruptedException {
-        System.out.println("winner!");
+        //System.out.println("winner!");
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("You won!!\nCongratulations!!");
         alert.show();

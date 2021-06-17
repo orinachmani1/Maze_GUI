@@ -38,7 +38,6 @@ public class MazeDisplayer extends Canvas {
     {
         setImageFileNamePlayer("Resources/boy.jpg");
         setImageFileNameWall("Resources/nemo.PNG");
-        //setImageFileNameWall("Resources/shark.jpg");
         setImageFileNameGoal("Resources/goal.png");
         setImageFileNameWinner("Resources/winner.jpg");
         setImageFileNamePath("Resources/green.PNG");
@@ -74,19 +73,9 @@ public class MazeDisplayer extends Canvas {
     public String getImageFileNameWall() {
         return imageFileNameWall.get();
     }
-
     private String getImageFileNameGoal() { return imageFileNameGoal.get();}
-
-    private String getImageFileNameWinner() {
-        return this.imageFileNameWinner.get();
-    }
     private String getImageFileNamePath() { return this.imageFileNamePath.get();}
 
-
-
-//    public String imageFileNameWallProperty() {
-//        return imageFileNameWall.get();
-//    }
 
     public void setImageFileNameWall(String imageFileNameWall) {
         this.imageFileNameWall.set(imageFileNameWall);
@@ -100,14 +89,9 @@ public class MazeDisplayer extends Canvas {
         return imageFileNamePlayer.get();
     }
 
-//    public String imageFileNamePlayerProperty() {
-//        return imageFileNamePlayer.get();
-//    }
-
     public void setImageFileNamePlayer(String imageFileNamePlayer) {
         this.imageFileNamePlayer.set(imageFileNamePlayer);
     }
-
 
     public void drawMaze(int[][] maze) {
         this.maze = maze;
@@ -135,39 +119,8 @@ public class MazeDisplayer extends Canvas {
                 drawGoal(graphicsContext, cellHeight, cellWidth);
                 drawPlayer(graphicsContext, cellHeight, cellWidth);
             }
-            /*else
-                {
-                    //System.out.println("winner image");
-                    drawWinnerScreen(graphicsContext, cellHeight, cellWidth);
-                    this.winner = false;
-                }*/
-
         }
     }
-
-    /*private void drawWinnerScreen(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
-        double x = getGoalCol() * cellWidth;
-        double y = getGoalRow() * cellHeight;
-        double canvasHeight = getHeight();
-        double canvasWidth = getWidth();
-        //graphicsContext.setFill(Color.GREEN);
-
-        Image winnerImage = null;
-        try {
-            winnerImage = new Image(new FileInputStream(getImageFileNamePlayer()));
-        } catch (FileNotFoundException e) {
-            System.out.println("There is no player image file");
-        }
-        if(winnerImage == null)
-            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
-        else
-            System.out.println("winner photo");
-            //graphicsContext.drawImage(winnerImage, x, y, cellWidth, cellHeight);
-            graphicsContext.drawImage(winnerImage,canvasHeight,canvasWidth);
-            graphicsContext.drawImage(winnerImage,x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-    }*/
-
-
 
     private void drawGoal(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
 

@@ -1,25 +1,18 @@
-package sample;
+package Main;
 
 ///import algorithms.maze3D.Maze3DState;
 import Model.IModel;
 import Model.MyModel;
 import ViewModel.MyViewModel;
 import View.MyViewController;
-import com.sun.glass.ui.View;
-import com.sun.javafx.tk.quantum.PrimaryTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-import java.io.File;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 public class Main extends Application {
     public static Stage mazeNew;
