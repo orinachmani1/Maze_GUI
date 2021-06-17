@@ -27,7 +27,6 @@ public class Main extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/MyView.fxml"));
         Parent root = fxmlLoader.load();
-        //Parent root = FXMLLoader.load(getClass().getResource("../View/MyView.fxml"));
         primaryStage.setTitle("Maze Game");
         primaryStage.setScene(new Scene(root,720 , 360));
         primaryStage.show();
