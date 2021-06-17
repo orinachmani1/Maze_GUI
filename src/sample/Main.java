@@ -27,9 +27,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-//        File musicPath=new File("..//Resources/GameOT.mp3");
-//        music=new MediaPlayer(new Media(musicPath.toURI().toString()));
-//        music.play();
+        String fileName =  "../Resources/GameOT.mp3";
+        File musicPath=new File(fileName);
+        music=new MediaPlayer(new Media(musicPath.toURI().toString()));
+        music.play();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/MyView.fxml"));
         Parent root = fxmlLoader.load();
