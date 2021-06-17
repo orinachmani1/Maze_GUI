@@ -2,6 +2,8 @@ package ViewModel;
 
 import Model.IModel;
 import Model.MovementDirection;
+import Model.MyModel;
+import View.MazeDisplayer;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
 import javafx.application.Platform;
@@ -9,6 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -110,4 +113,43 @@ public class MyViewModel extends Observable implements Observer {
         int col =  imodel.getMaze().getGoalPosition().getColumnIndex();
         return col;
     }
-}
+
+
+    public void moveByMouse(KeyCode content) {
+        imodel=new MyModel();
+        MovementDirection wayToMove;
+        wayToMove=MovementDirection.DOWN;
+            if (content.equals(KeyCode.UP))
+            {
+                wayToMove=MovementDirection.UP;
+          //      imodel.updatePlayerLocation(wayToMove);
+
+            }
+        if (content.equals(KeyCode.DOWN))
+        {
+            //wayToMove=MovementDirection.DOWN;
+        //    imodel.updatePlayerLocation(wayToMove);
+        }
+        if (content.equals(KeyCode.LEFT)) {
+            wayToMove = MovementDirection.LEFT;
+         //   imodel.updatePlayerLocation(wayToMove);
+        }
+        if (content.equals(KeyCode.RIGHT))
+        {
+            wayToMove=MovementDirection.RIGHT;
+
+           // imodel.updatePlayerLocation(wayToMove);
+        }
+      //  imodel.updatePlayerLocation(wayToMove);
+
+            }
+
+
+    public void moveByMouse(MouseEvent mouseEvent, MazeDisplayer mazeDisplayer ){
+    imodel.MouseMovePlayer(mouseEvent,mazeDisplayer);
+    }
+        }
+
+
+
+

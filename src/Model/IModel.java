@@ -1,9 +1,11 @@
 package Model;
 
+import View.MazeDisplayer;
 import algorithms.mazeGenerators.*;
 import algorithms.search.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,4 +37,6 @@ public interface IModel {
     void saveMaze(File f);
     void loadMaze(File f);
     void closeApp();
+
+    void MouseMovePlayer(MouseEvent m, MazeDisplayer m2);
 }

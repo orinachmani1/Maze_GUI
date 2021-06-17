@@ -3,6 +3,7 @@ package Model;
 import Client.*;
 import Server.*;
 import IO.*;
+import View.MazeDisplayer;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
@@ -13,6 +14,7 @@ import algorithms.search.Solution;
 import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import sample.Main;
 
 import java.io.*;
@@ -25,17 +27,21 @@ public class MyModel extends Observable implements IModel {
 
     private Server serverGenerateMaze;
     private Server serverSolveSearchMaze;
-    private Maze maze;
+    private static Maze maze;
     private Solution solution;
-
+    private MyViewModel viewM;
+    private MazeDisplayer mazeD;
     private int playerRow = 0;
     private int playerCol = 0;
     private int goalRow;
     private int goalColumn;
+
     boolean win = false;
 
     public MyModel()
     {
+         viewM= new MyViewModel(this);
+        mazeD=new MazeDisplayer();
         //this.serverGenerateMaze =  new Server(5400, 1000, new ServerStrategyGenerateMaze());
         //this.serverSolveSearchMaze =  new Server(5401, 1000, new ServerStrategySolveSearchProblem());
         //startServers();
@@ -128,7 +134,9 @@ public class MyModel extends Observable implements IModel {
             if (key.equals("RIGHT"))
             {
                 if (playerCol < maze.getCols() - 1)
-                    movePlayer(playerRow, playerCol + 1);
+                movePlayer(playerRow, playerCol + 1);
+
+                //System.out.println("Yaminaaaaaa");
             }
 
             if (key.equals("UPRIGHT"))
@@ -235,8 +243,38 @@ public class MyModel extends Observable implements IModel {
         catch (IOException e) {
         }
     }
+    public void MouseMovePlayer(MouseEvent mouseEvent, MazeDisplayer mazeDisplayer) {
+        if (maze != null) {
 
-    @Override
+
+            double xValue = mouseEvent.getX() / (mazeDisplayer.getWidth() / maze.getGrid()[0].length);
+
+            double firstDouble = mouseEvent.getY();
+
+            double yValue = firstDouble / (mazeDisplayer.getHeight() / maze.getGrid().length);
+
+            if (yValue < mazeDisplayer.getPlayerRow()) {
+                viewM.moveByMouse(KeyCode.UP);
+                updatePlayerLocation(MovementDirection.UP);
+            } else if (xValue > mazeDisplayer.getPlayerCol() +1) {
+                viewM.moveByMouse(KeyCode.RIGHT);
+                updatePlayerLocation(MovementDirection.RIGHT);
+
+            } else if (xValue < mazeDisplayer.getPlayerCol()) {
+                viewM.moveByMouse(KeyCode.LEFT);
+                updatePlayerLocation(MovementDirection.LEFT);
+            } else if (yValue > mazeDisplayer.getPlayerRow() +1) {
+                viewM.moveByMouse(KeyCode.DOWN);
+                updatePlayerLocation(MovementDirection.DOWN);
+            }
+            //updatePlayerLocation(MovementDirection.RIGHT);
+            mazeD.draw();
+
+
+        }
+    }
+
+        @Override
     public void loadMaze(File file) {
         try{
             ObjectInputStream objectInputStream= new ObjectInputStream((new FileInputStream(file)));

@@ -255,7 +255,9 @@ public class MyViewController implements IView, Observer, Initializable {
         }
 
     }
-
+    public void moveByMouse(MouseEvent mouseEvent ){
+        viewModel.moveByMouse(mouseEvent,mazeDisplayer);
+    }
     public void LoadButtonPressed(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Maze Loader Dialog");
