@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import View.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<BorderPane stylesheets="@Properties.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal">
+    <left>
+        <GridPane>
+
+            <TextArea
+                    editable="false" prefHeight="500" prefWidth="500" stylesheets="@Properties.css" text=
+                    "threadPoolSize=5
+                    &#10;mazeGeneratingAlgorithm=MyMazeGenerator
+                    &#10;mazeSearchingAlgorithm=BestFirstSearch"
+                     xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal">
+            </TextArea>
+        </GridPane>
+
+    </left>
+
+</BorderPane>
